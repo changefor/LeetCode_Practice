@@ -2,16 +2,16 @@ from typing import List
 
 
 class Solution:
-    def generate(self, numRows: int) -> List[List[int]]:
+    def getRow(self, rowIndex: int) -> List[int]:
         global result
         result = []
-        if numRows == 0:
-            return result
-        for i in range(numRows):
-            new = [None] * (i+1)
+        for i in range(rowIndex+1):
+            new = [None]*(i+1)
             result.append(new)
+
+        result[0][0] = 1
+        for i in range(rowIndex+1):
             if i==0:
-                result[0][0]=1
                 continue
             for j in range(i+1):
                 if j == 0 or j==i:
@@ -19,9 +19,6 @@ class Solution:
                 else:
                     ## [2][1] = [1][0]+1[1]
                     result[i][j] = result[i-1][j-1] + result[i-1][j]
-        return result
+        return result[rowIndex]
 
-ret = Solution().generate(5)
-
-for l in ret:
-    print(l)
+print(Solution().getRow(3))
