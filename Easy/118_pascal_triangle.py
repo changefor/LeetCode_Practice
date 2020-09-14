@@ -7,18 +7,16 @@ class Solution:
         result = []
         if numRows == 0:
             return result
-        for i in range(numRows):
+        result.append([1])
+        for i in range(1, numRows):
             new = [None] * (i+1)
             result.append(new)
-            if i==0:
-                result[0][0]=1
-                continue
             for j in range(i+1):
-                if j == 0 or j==i:
+                if j == 0 or j == i:
                     result[i][j] = 1
                 else:
                     ## [2][1] = [1][0]+1[1]
-                    result[i][j] = result[i-1][j-1] + result[i-1][j]
+                    result[i][j] = result[i - 1][j - 1] + result[i - 1][j]
         return result
 
 ret = Solution().generate(5)
