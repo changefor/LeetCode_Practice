@@ -3,24 +3,22 @@ from typing import List
 
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
-        global top, result
+        global result
         result = []
-        top = [1]
-        result.append(top)
         for i in range(numRows):
-            if i == 0:
+            new = [None]*(i+1)
+            result.append(new)
+
+        result[0][0] = 1
+        for i in range(numRows):
+            if i==0:
                 continue
-            else:
-                now = []
-                now.append(1)
-                for j in range(len(top)):
-                    if j == (len(top)-1):
-                        break
-                    else:
-                        now.append(top[j] + top[j+1])
-                now.append(1)
-                result.append(now)
-                top = now
+            for j in range(i+1):
+                if j == 0 or j==i:
+                    result[i][j] = 1
+                else:
+                    ## [2][1] = [1][0]+1[1]
+                    result[i][j] = result[i-1][j-1] + result[i-1][j]
         return result
 
 ret = Solution().generate(5)
